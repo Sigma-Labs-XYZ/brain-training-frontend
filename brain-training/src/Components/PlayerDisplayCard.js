@@ -1,7 +1,10 @@
-export default function PlayerDisplayCard() {
-  return (
-    <div>
-      <h1>Player display card </h1>
-    </div>
-  );
+import { getProfile } from "./Networking";
+
+export default function PlayerDisplayCard(props) {
+  async function fetchProfile() {
+    const playerAvatar = await getProfile({ userID: 2 });
+    return playerAvatar;
+  }
+
+  return <div>{fetchProfile()}</div>;
 }
