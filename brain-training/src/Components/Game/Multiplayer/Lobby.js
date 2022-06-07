@@ -14,6 +14,7 @@ import {
 } from "@mui/material";
 
 import io from "socket.io-client";
+import MultiplayerGame from "./MultiplayerGame";
 
 const socket = io.connect("https://shrouded-lowlands-96444.herokuapp.com/");
 const room = 1234;
@@ -25,6 +26,7 @@ export default function Lobby() {
   const [copiedLobbyLink, setCopiedLobbyLink] = useState();
   return (
     <Container sx={{ width: "80%" }}>
+      <MultiplayerGame/>
       <Typography variant="h4" align="center" gutterBottom marginTop={"5%"}>
         You are in lobby A
       </Typography>

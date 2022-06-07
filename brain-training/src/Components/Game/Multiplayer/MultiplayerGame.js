@@ -9,7 +9,7 @@ import { useState, useEffect } from "react";
 import io from "socket.io-client";
 const socket = io.connect("https://shrouded-lowlands-96444.herokuapp.com/");
 const room = 5678;
-const username = "tibooooo";
+//const username = "tibooooo";
 
 export default function MultiplayerGame() {
   const [isMusic, setIsMusic] = useState(false);
@@ -17,6 +17,8 @@ export default function MultiplayerGame() {
   const [sneakySecondsLeft, setSneakySecondsLeft] = useState(0);
   const [play, { stop }] = useSound(fromTheStart, { volume: 0.1 });
   const [scoreList, setScoreList] = useState([]);
+  const [username, setUsername] = useState("");
+  const [showUser, setShowUser] = useState(true);
 
   socket.emit("join_room", { username, room });
 
@@ -45,6 +47,10 @@ export default function MultiplayerGame() {
   function handleStopClick() {
     stop();
     setIsMusic(false);
+  }
+
+  function submitUsername() {
+    setShowUser(false);
   }
 
   function addToScore(points) {
@@ -88,6 +94,20 @@ export default function MultiplayerGame() {
       </Box>
       <Box align="center">
         {sneakySecondsLeft === 0 ? loadQuestion() : null}
+      </Box>
+      <Box align="center">
+        <input
+          type="text"
+          value={username}
+          placeholder="Hey..."
+          onChange={(event) => {
+            setUsername(event.target.value);
+          }}
+          onKeyPress={(event) => {
+            event.key === "Enter" && submitUsername();
+          }}
+        />
+        {showUser ? <button onClick={submitUsername}>&#9658;</button> : null}
       </Box>
     </Container>
   );
