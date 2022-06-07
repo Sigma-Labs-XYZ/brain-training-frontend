@@ -1,7 +1,7 @@
 import QuestionsAndAnswers from "../QuestionsAndAnswers";
 import ScoreDisplay from "../ScoreDisplay";
 import { Container } from "@mui/system";
-import { Button } from "@mui/material";
+import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import useSound from "use-sound";
 import fromTheStart from "../../../Sounds/fromTheStart.mp3";
@@ -72,8 +72,8 @@ export default function MultiplayerGame() {
 
   useEffect(() => {
     console.log("use effect running");
+    displayUserScores();
     socket.on("receive_score", (data) => {
-      console.log(data);
       setScoreList([...scoreList, data]);
     });
   }, [scoreList]);
@@ -81,6 +81,14 @@ export default function MultiplayerGame() {
   useEffect(() => {
     sendScore();
   }, [score]);
+
+  function displayUserScores() {
+    return scoreList.map((user) => (
+      <Typography gutterBottom variant="h5" component="h2" align="center">
+        {`name: ${user.username}, score: ${user.score}`}
+      </Typography>
+    ));
+  }
 
   return (
     <Container align="center">
@@ -91,22 +99,25 @@ export default function MultiplayerGame() {
       )}
       <Box align="center" sx={{ justifyContent: "space-between" }}>
         <ScoreDisplay score={score} />
+        {displayUserScores()}
       </Box>
       <Box align="center">
         {sneakySecondsLeft === 0 ? loadQuestion() : null}
       </Box>
       <Box align="center">
-        <input
-          type="text"
-          value={username}
-          placeholder="Hey..."
-          onChange={(event) => {
-            setUsername(event.target.value);
-          }}
-          onKeyPress={(event) => {
-            event.key === "Enter" && submitUsername();
-          }}
-        />
+        {showUser ? (
+          <input
+            type="text"
+            value={username}
+            placeholder="Name"
+            onChange={(event) => {
+              setUsername(event.target.value);
+            }}
+            onKeyPress={(event) => {
+              event.key === "Enter" && submitUsername();
+            }}
+          />
+        ) : null}
         {showUser ? <button onClick={submitUsername}>&#9658;</button> : null}
       </Box>
     </Container>
