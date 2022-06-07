@@ -6,14 +6,17 @@ export default function PlayerDisplayCard() {
     const playerAvatar = await getProfile(2);
     return playerAvatar;
   }
-  console.log(fetchProfile());
-  return <div> {}</div>;
+  return (
+    <div>
+      <Container>
+        <Box sx={{ justifyContent: "space-between", width: 300, height: 300 }}>
+          {fetchProfile()}
+        </Box>
+      </Container>
+    </div>
+  );
 }
 
 /*
-  <Container>
-      <Box sx={{ justifyContent: "space-between", width: 300, height: 300 }}>
-        {fetchProfile()}
-      </Box>
-    </Container>
+  
 */
