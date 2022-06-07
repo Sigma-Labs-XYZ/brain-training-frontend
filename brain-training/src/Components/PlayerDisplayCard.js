@@ -11,7 +11,6 @@ export default function PlayerDisplayCard() {
 }
 
 /*
-
   <Container>
       <Box sx={{ justifyContent: "space-between", width: 300, height: 300 }}>
         {fetchProfile()}
