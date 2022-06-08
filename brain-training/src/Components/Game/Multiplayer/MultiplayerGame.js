@@ -1,12 +1,14 @@
 import QuestionsAndAnswers from "../QuestionsAndAnswers";
 import ScoreDisplay from "../ScoreDisplay";
-import { Container } from "@mui/system";
+import { Container, maxHeight } from "@mui/system";
 import { Button, Typography } from "@mui/material";
 import { Box } from "@mui/material";
 import useSound from "use-sound";
 import fromTheStart from "../../../Sounds/fromTheStart.mp3";
 import { useState, useEffect } from "react";
 import io from "socket.io-client";
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
 const socket = io.connect("https://brain-training-multiplayer.sigmalabs.co.uk");
 const room = 5678;
 //const username = "tibooooo";
@@ -82,12 +84,39 @@ export default function MultiplayerGame() {
     sendScore();
   }, [score]);
 
+  function highScore() {
+    let highScoreList = scoreList.map((user) => (user.score));
+    console.log(highScoreList);
+    console.log(Math.max(...highScoreList));
+    return Math.max(...highScoreList);
+  }
+
   function displayUserScores() {
-    return scoreList.map((user) => (
-      <Typography gutterBottom variant="h5" component="h2" align="center">
-        {`name: ${user.username}, score: ${user.score}`}
-      </Typography>
-    ));
+    let highest = highScore();
+    let highUser = 'anon'
+    scoreList.forEach(function(user){
+      if(user.score === highest){
+        highUser = user.username
+      }
+    })
+    return (
+      <Card
+        sx={{
+          height: "100%",
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          bgcolor: "rgb(24,118,209)",
+        }}
+      >
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="h2" align="center" color='white'>
+            {`High Score: ${highest} - ${highUser}  `}
+          </Typography>
+        </CardContent>
+      </Card>
+    );
+
   }
 
   return (

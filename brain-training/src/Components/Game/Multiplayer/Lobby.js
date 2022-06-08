@@ -28,7 +28,6 @@ export default function Lobby() {
   const [copiedLobbyLink, setCopiedLobbyLink] = useState();
   return (
     <Container sx={{ width: "80%" }}>
-      <MultiplayerGame/>
       <Typography variant="h4" align="center" gutterBottom marginTop={"5%"}>
         You are in lobby A
       </Typography>
