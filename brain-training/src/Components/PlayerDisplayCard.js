@@ -18,11 +18,9 @@ export default function PlayerDisplayCard() {
 
   return (
     <div>
-      <Container>
-        <Box sx={{ justifyContent: "space-between", width: 300, height: 200 }}>
-          {`${fetchProfilePicture()} ${fetchProfileUsername()} `}
-        </Box>
-      </Container>
+      <Box sx={{ justifyContent: "space-between", width: 300, height: 300 }}>
+        {`${fetchProfilePicture()} ${fetchProfileUsername()} `}
+      </Box>
     </div>
   );
 }
