@@ -11,16 +11,16 @@ export default function PlayerDisplayCard() {
     return profile.user.username;
   }
 
-  async function fetchWinMessage() {
-    const profile = await getProfile(2);
-    return profile.user.win_message;
-  }
+  // async function fetchWinMessage() {
+  //   const profile = await getProfile(2);
+  //   return profile.user.win_message;
+  // }
 
   return (
     <div>
       <Container>
-        <Box sx={{ justifyContent: "space-between", width: 300, height: 300 }}>
-          {`${fetchProfilePicture()} ${fetchWinMessage()} ${fetchProfileUsername()} `}
+        <Box sx={{ justifyContent: "space-between", width: 300, height: 200 }}>
+          {`${fetchProfilePicture()} ${fetchProfileUsername()} `}
         </Box>
       </Container>
     </div>
